@@ -63,4 +63,10 @@ class CreateFileUploadView(CreateView):  # new
     model = Message
     form_class = MessageFileForm
     template_name = "file_upload.html"
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("chat_app:messages")
+
+    def form_valid(self, form):
+       instance = form.instance
+       instance.by_user = self.request.user 
+       instance.at_time = timezone.now()
+       return super().form_valid(form)
