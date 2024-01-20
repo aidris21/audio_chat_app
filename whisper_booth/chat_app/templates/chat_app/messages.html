@@ -25,8 +25,6 @@
         <form id="chat-form" method="post" action="{% url 'chat_app:send_message' %}">
             {% csrf_token %}
             <div id="chat-bottom" class="input-group">
-                {# <input type="text" style="border: solid darkblue" id="chat-msg" name="chat-msg"
-                    class="form-control" />#}
                 <textarea id="chat-msg" name="chat-msg" class="form-control" />
                 </textarea>
                 <span class="input-group-btn">

@@ -33,3 +33,4 @@ def send_message(request):
         return redirect('chat_app:messages')
     else:
         return HttpResponse('Request should be POST.')
+
