@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -25,7 +25,11 @@ def messages(request):
 
 def send_message(request):
     if request.method == "POST":
-        text = request.POST.get('msgbox', None)
-        if text != '':
+        print(request.POST.keys())
+        text = request.POST.get('chat-msg', None)
+        if text is not None and text != '':
             new_message = Message(text=text, by_user=request.user, at_time=timezone.now())
             new_message.save()
+        return redirect('chat_app:messages')
+    else:
+        return HttpResponse('Request should be POST.')

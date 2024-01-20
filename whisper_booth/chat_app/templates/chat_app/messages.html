@@ -1,15 +1,15 @@
 <div class="col-lg-8">
     <div class="container">
         <div id="chat-body" class="panel panel-default">
-            <div class="panel-heading" style="color: white; background: darkblue">Speech to text Chat Box</div>
+            <div class="panel-heading" style="color: white; background: darkblue">Whisper Booth</div>
             <div id="msg-list-div" class="panel-body">
                 <ul id="msg-list" class="list-group">
                     {% for message in messages %}
                     <b>{{ message.by_user }}</b>
                     {% if message.by_user == request.user %}
-                    <li class="text-right list-group-item">{{ message.message }}</li>
+                    <li class="text-right list-group-item">{{ message.text }}</li>
                     {% else %}
-                    <li class="text-left list-group-item">{{ message.message }}</li>
+                    <li class="text-left list-group-item">{{ message.text }}</li>
                     {% endif %}
                     {% empty %}
                     <li class="text-right list-group-item">No messages yet!</li>
@@ -22,7 +22,7 @@
 
         <h3> Send Message </h3>
 
-        <form id="chat-form" method="post" action="{% url 'chat:post' %}">
+        <form id="chat-form" method="post" action="{% url 'chat_app:send_message' %}">
             {% csrf_token %}
             <div id="chat-bottom" class="input-group">
                 {# <input type="text" style="border: solid darkblue" id="chat-msg" name="chat-msg"
