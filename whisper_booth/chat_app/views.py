@@ -1,16 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from .models import Message
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the chat_app index.")
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
+    return HttpResponse(f"Welcome to the Whisper Booth {request.user.username}!")
 
 def messages(request):
-    last_10_messages = Message.objects.order_by("at_time")[:10]
+    if not request.user.is_authenticated:
+        return redirect("login")
+    last_10_messages = Message.objects.filter(by_user=request.user).order_by("at_time")[:10]
     context = {
-        "last_10_messages": last_10_messages,
+        "messages": last_10_messages,
     }
-    return render(request, "chat_app/index.html", context)
+    
+    return render(request, "chat_app/messages.html", context)
+
+
+def send_message(request):
+    if request.method == "POST":
+        text = request.POST.get('msgbox', None)
+        if text != '':
+            new_message = Message(text=text, by_user=request.user, at_time=timezone.now())
+            new_message.save()
