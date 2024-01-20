@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+OTHER_DIR = BASE_DIR.parent  # in accordance with your directories
+sys.path.append(str(OTHER_DIR))
 
 
 # Quick-start development settings - unsuitable for production
