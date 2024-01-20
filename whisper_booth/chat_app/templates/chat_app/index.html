@@ -2,14 +2,6 @@
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a>
 {% else %}
-    Hi {{ user.username }}!
-    {% if last_10_messages %}
-    <ul>
-        {% for message in last_10_messages %}
-        <li>{{ message.text }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No messages are available.</p>
-{% endif %}
+    Welcome to the Whisper Booth {{ user.username }}!
+    <p><a href="{% url 'chat_app:messages' %}">Chat with AI</a></p>
 {% endif %}

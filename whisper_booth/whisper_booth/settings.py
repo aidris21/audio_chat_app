@@ -130,5 +130,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/chat_app"
+LOGOUT_REDIRECT_URL = "/accounts/login"
 
 ASGI_APPLICATION = 'whisper_booth.asgi.application'

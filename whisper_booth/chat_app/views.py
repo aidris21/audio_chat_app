@@ -14,7 +14,7 @@ def index(request):
     if not request.user.is_authenticated:
         return redirect("login")
     
-    return HttpResponse(f"Welcome to the Whisper Booth {request.user.username}!")
+    return render(request, "chat_app/index.html", context={})
 
 def messages(request):
     if not request.user.is_authenticated:
@@ -31,7 +31,7 @@ def messages(request):
         messages.append(
             {"text": message.text, "at_time": message.at_time, "by_user": DEFAULT_AI_USERNAME}
         )
-        
+
     messages.sort(reverse=True, key=lambda message: message["at_time"])
 
     context = {
