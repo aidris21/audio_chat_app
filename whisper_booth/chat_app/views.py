@@ -3,8 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
 
 from .models import Message, AITranscript
+from .forms import MessageFileForm
 
 from ai_chat.chat_with_gpt import get_gpt_response_from_prompt
 
@@ -32,7 +35,7 @@ def messages(request):
             {"text": message.text, "at_time": message.at_time, "by_user": DEFAULT_AI_USERNAME}
         )
 
-    messages.sort(reverse=True, key=lambda message: message["at_time"])
+    messages.sort(key=lambda message: message["at_time"])
 
     context = {
         "messages": messages,
@@ -56,3 +59,8 @@ def send_message(request):
 
     return redirect('chat_app:messages')
 
+class CreateFileUploadView(CreateView):  # new
+    model = Message
+    form_class = MessageFileForm
+    template_name = "file_upload.html"
+    success_url = reverse_lazy("home")

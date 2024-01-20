@@ -133,3 +133,6 @@ LOGIN_REDIRECT_URL = "/chat_app"
 LOGOUT_REDIRECT_URL = "/accounts/login"
 
 ASGI_APPLICATION = 'whisper_booth.asgi.application'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

@@ -6,5 +6,6 @@ app_name = "chat_app"
 urlpatterns = [
     path("", views.index, name="index"),
     path("messages/", views.messages, name="messages"),
-    path("send_message/", views.send_message, name="send_message")
+    path("send_message/", views.send_message, name="send_message"),
+    path("file_upload/", views.CreateFileUploadView.as_view(), name="file_upload")
 ]

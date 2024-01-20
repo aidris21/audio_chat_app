@@ -5,7 +5,7 @@
             <div id="msg-list-div" class="panel-body">
                 <ul id="msg-list" class="list-group">
                     {% for message in messages %}
-                    <b>{{ message.by_user }}</b>
+                    <b>{{ message.by_user }}: {{ message.at_time }}</b>
                     {% if message.by_user == request.user %}
                     <li class="text-right list-group-item">{{ message.text }}</li>
                     {% else %}
@@ -34,6 +34,7 @@
             </div>
         </form>
 
+        <p><a href="{% url 'chat_app:file_upload' %}">Upload File</a></p>
         <p><a href="{% url 'logout' %}">Log Out</a></p>
 
     </div>
